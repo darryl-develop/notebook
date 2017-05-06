@@ -1,5 +1,5 @@
 # Rpi3 Server
-[*plex*](#plex) | [*sabnzbd*](#sabnzbd)
+[*plex*](#plex) | [*sabnzbd*](#sabnzbd) | [*pi hole*](#pi-hole)
 
 ###### Base Install
 - [Raspbian](https://downloads.raspberrypi.org/raspbian_lite_latest)
@@ -10,8 +10,14 @@
 
 ###### Create User
 ```bash
-sudo useradd -m -g rpi3
-sudo passwd rpi3
+sudo useradd -m -g sudo plex
+sudo useradd -m -g sudo sabnzbd
+sudo useradd -m -g sudo pihole
+
+sudo passwd plex
+sudo passwd sabnzbd
+sudo passwd pihole
+
 sudo reboot
 ```
 ```bash
@@ -24,6 +30,8 @@ sudo rm -rf pi
 # Plex
 ###### Install | [*web*](http://localhost:32400/)
 ```bash
+su - plex
+
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
@@ -57,6 +65,8 @@ sudo nano /etc/fstab
 # Sabnzbd {t}
 ###### Install | [*web*](http://localhost:5050)
 ```bash
+su - sabnzbd
+
 sudo apt-get install sabnzbdplus
 ```
 
@@ -71,3 +81,12 @@ sudo cp CouchPotatoServer/init/ubuntu /etc/init.d/couchpotato
 sudo chmod +x /etc/init.d/couchpotato
 sudo update-rc.d couchpotato defaults
 ```
+
+# Pi Hole {t}
+###### Install | [*web*](http://pi.hole/admin)
+```bash
+su - pihole
+
+curl -sSL https://install.pi-hole.net | bash
+```
+- [Configure Router DNS Server](https://discourse.pi-hole.net/t/how-do-i-configure-my-devices-to-use-pi-hole-as-their-dns-server/245)
